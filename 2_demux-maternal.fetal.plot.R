@@ -41,7 +41,7 @@ write.csv(table(aa$seurat_clusters,aa$SNG.BEST.GUESS),file=paste0(outFolder,"clu
 aa<-aa %>% filter(!is.na(SNG.BEST.GUESS))
 outFolder <- "./1_demux_output/"
 
-fname=paste0(outFolder,"UMAP_LocationHarmony.Origin_",Sys.Date(),".pdf");
+fname=paste0(outFolder,"UMAP_LocationHarmony.Origin_",Sys.Date(),".pdf"); 
 pdf(fname,width=10,height=4)
 p2 <- ggplot(aa ,aes(UMAP_1,UMAP_2,color=SNG.BEST.GUESS)) +
   geom_point(size=0.1,alpha = 1) +

@@ -1,0 +1,36 @@
+Cluster	cell_type	color	Notes
+0	Stromal-1		
+1	Stromal-2		Close to Cluster 24. Mostly in Decidua/Placenta
+2	Fibroblast-1		"Most in Uterus, some in Decidua"
+3	Fibroblast-2		Uterus and Decidua
+4	Macrophage-1		Mainly uterus
+5	Fibroblast-3		Uterus/Decidua
+6	Erythroid cells		Only in placenta
+7	Monocyte		
+8	Dendritic cell		
+9	Plasmocyte/B cell		Mainly in placenta
+10	Epithelial-1		Mainly in placenta
+11	Stromal-4		In Decidua/Placenta. Markers suggesting trophoblasts
+12	Neutrophil		Placental
+13	Endothelial		
+14	Trophoblast-1		
+15	Fibroblast-4		Placenta only fibroblasts
+16	T-cell-1		CD8
+17	NK cell		
+18	Trophoblast-2		
+19	T-cell-2		
+20	SMC-1		
+21	Macrophage-2 (progenitor)		
+22	Epithelial-2 		Decidua/Uterus. 
+23	SMC-2		Epithelial based on markers. Close to 10 and 26
+24	Stromal-5		Close to 1
+25	T-cell-3		
+26	Epithelial-3 		Close to 10 and 23
+27	Mast cells		
+28	Erythroid?		Stromal?
+29	Neutrophil? 		Macrophage/ myeloid from markers
+30	Monocyte ?		B cells from markers?
+31	Erythroid/Stromal?		
+32	Plasmocyte ?		
+33	Plasmocyte ?		
+34	Plasmocyte ?		

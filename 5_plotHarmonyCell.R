@@ -15,53 +15,53 @@ future::plan(strategy = 'multicore', workers = 16)
 options(future.globals.maxSize = 30 * 1024 ^ 3)
 
 
-outFolder="./5_harmony_cellClass_soupx-doubletfinder_chrM_res0.5_plots/"
+outFolder="./5_harmony_res0.5_plots/"
 system(paste0("mkdir -p ", outFolder))
 
 
 ###########################################
 
-sc <- read_rds("4_harmony_cellClass_soupx_doubletfinder_chrM/sc.NormByLibrary.cellclassify_newfilter-res0.5.2021-06-28.rds")
+sc <- read_rds("1_soupx_doubletfinder_chrM/sc.NormByLibrary.cellclassify_newfilter-res0.5.2023-12-27.rds")
 
-cell.type.annotation<-read.delim("cell-type.annotation.txt")
-clust2Name<-cell.type.annotation$Cell.type
-clust2Name<-paste0(c(0:30),"_",clust2Name)
-names(clust2Name)<-c(0:30)
+#cell.type.annotation<-read.delim("cell-type.annotation.txt")
+#clust2Name<-cell.type.annotation$Cell.type
+#clust2Name<-paste0(c(0:30),"_",clust2Name)
+#names(clust2Name)<-c(0:30)
 
-cluster.Colors<-c("#DF7D99","#838EDF","#4E65A6","#FFC000","#2BA3D3","#9ABF5C","#D14357","#329B2D",
-                  "#D5438E","#ED4315","#76956C","#7BC791","#CA8588","#F88091","#72C6C8","#E4652C","#9B91B9","#A37584","#2C3E18","#745B48",
-                  "#AA5485","#4E747A","#C59A89","#C9C76F","#FAFA33","#FFA6C9","#F4C2C2","#1034A6","#08E8DE","#00BFFF","#6F00FF")
-names(cluster.Colors)<-clust2Name
+#cluster.Colors<-c("#DF7D99","#838EDF","#4E65A6","#FFC000","#2BA3D3","#9ABF5C","#D14357","#329B2D",
+#                  "#D5438E","#ED4315","#76956C","#7BC791","#CA8588","#F88091","#72C6C8","#E4652C","#9B91B9","#A37584","#2C3E18","#745B48",
+#                  "#AA5485","#4E747A","#C59A89","#C9C76F","#FAFA33","#FFA6C9","#F4C2C2","#1034A6","#08E8DE","#00BFFF","#6F00FF")
+#names(cluster.Colors)<-clust2Name
+
 md<-sc@meta.data
 
 dim(sc)
 table(sc$Library)
 table(sc$Location) 
+table(sc$Condition)
 
-cluster.Colors2<-c("#DF7D99","#838EDF","#4E65A6","#FFC000","#2BA3D3","#9ABF5C","#D14357","#329B2D",
-                  "#D5438E","#ED4315","#76956C","#7BC791","#CA8588","#F88091","#72C6C8","#E4652C","#9B91B9","#A37584","#2C3E18","#745B48",
-                  "#AA5485","#4E747A","#C59A89","#C9C76F","#FAFA33","#FFA6C9","#F4C2C2","#1034A6","#08E8DE","#00BFFF","#6F00FF")
-names(cluster.Colors2)<-c(0:30) #c("Stromal-1","Macrophage-2","Macrophage-1","Endothelial-1","Monocyte","CD4_T-cell","Decidual","CD8_T-cell","LED","Stromal-2","ILC","NK-cell","Smooth muscle cells-1","Myofibroblast","Macrophage-3","Endothelial-2","DC","Smooth muscle cells-2","EVT","Plasmablast","Smooth muscle cells-3","Macrophage-4","B-cell","Unciliated Epithelial")
+#cluster.Colors2<-c("#DF7D99","#838EDF","#4E65A6","#FFC000","#2BA3D3","#9ABF5C","#D14357","#329B2D",
+#                  "#D5438E","#ED4315","#76956C","#7BC791","#CA8588","#F88091","#72C6C8","#E4652C","#9B91B9","#A37584","#2C3E18","#745B48",
+#                  "#AA5485","#4E747A","#C59A89","#C9C76F","#FAFA33","#FFA6C9","#F4C2C2","#1034A6","#08E8DE","#00BFFF","#6F00FF")
+#names(cluster.Colors2)<-c(0:30) #c("Stromal-1","Macrophage-2","Macrophage-1","Endothelial-1","Monocyte","CD4_T-cell","Decidual","CD8_T-cell","LED","Stromal-2","ILC","NK-cell","Smooth muscle cells-1","Myofibroblast","Macrophage-3","Endothelial-2","DC","Smooth muscle cells-2","EVT","Plasmablast","Smooth muscle cells-3","Macrophage-4","B-cell","Unciliated Epithelial")
 
 
-
-fname=paste0(outFolder,"UMAP_Harmony.png");
-png(fname,width=1000,height=1000)
-#DimPlot(sc, reduction = "umap", label = TRUE, pt.size = 0.5,label.size = 6) #+ NoLegend()
-DimPlot(sc, cols = cluster.Colors2, label=TRUE , repel=TRUE)
-dev.off()
+##fname=paste0(outFolder,"UMAP_Harmony.png");
+##png(fname,width=1000,height=1000)
+#DimPlot(sc, cols = cluster.Colors2, label=TRUE , repel=TRUE)
+##dev.off()
 
 
 # UMAP with colors
 
 aa <- FetchData(sc,c("UMAP_1","UMAP_2","seurat_clusters","Library","Location","Condition")) 
-aa$cluster_name <- clust2Name[as.character(aa$seurat_clusters)]
+##aa$cluster_name <- clust2Name[as.character(aa$seurat_clusters)]
 
 fname=paste0(outFolder,"UMAP_LocationHarmony.png")
 png(fname,width=800,height=600)
 p1 <- ggplot(aa,aes(UMAP_1,UMAP_2,color=Location)) +
     geom_point(size=0.1) +
-    scale_colour_manual(values=c("Cervix"="#F4B183","Decidua"="#DDABD6","Myometrium"="#8AD2CD") )+
+    scale_colour_manual(values=c("Pla"="#F4B183","Dec"="#DDABD6","Ute"="#8AD2CD") )+
     guides(colour = guide_legend(override.aes = list(size=10)))+
     theme(legend.text=element_text(size=30,face="bold"), axis.text=element_text(size=30,face="bold"), axis.title=element_text(size=20,face="bold"))+
     theme_bw()
@@ -69,37 +69,37 @@ p1
 ##    theme_black()
 dev.off()
 
+# 
+# # UMAP with colors
+# fname=paste0(outFolder,"UMAP_LocationHarmony.png");
+# png(fname,width=1200,height=800)
+# p1 <- ggplot(aa,aes(UMAP_1,UMAP_2,color=cluster_name)) +
+#     geom_point(size=0.1) +
+#     theme(text = element_text(size=30,face = "bold"))+
+#     scale_color_manual(values=cluster.Colors) +
+#     guides(colour = guide_legend(override.aes = list(size=5),title="Cell Type")) +
+#     theme(text = element_text(size=30,face = "bold"),
+#           plot.title = element_text(size = 25, face = "bold"),
+#           legend.title=element_text(size=25,face="bold"), 
+#           legend.text=element_text(size=25,face="bold"))+
+#     #
+#     theme_bw()
+# p1
+# ##    theme_black()
+# dev.off()
+# 
 
-# UMAP with colors
-fname=paste0(outFolder,"UMAP_LocationHarmony.png");
-png(fname,width=1200,height=800)
-p1 <- ggplot(aa,aes(UMAP_1,UMAP_2,color=cluster_name)) +
-    geom_point(size=0.1) +
-    theme(text = element_text(size=30,face = "bold"))+
-    scale_color_manual(values=cluster.Colors) +
-    guides(colour = guide_legend(override.aes = list(size=5),title="Cell Type")) +
-    theme(text = element_text(size=30,face = "bold"),
-          plot.title = element_text(size = 25, face = "bold"),
-          legend.title=element_text(size=25,face="bold"), 
-          legend.text=element_text(size=25,face="bold"))+
-    #
-    theme_bw()
-p1
-##    theme_black()
-dev.off()
 
-
-
-source("theme_black.R")
+##source("theme_black.R")
 ## Make a simple plot here:
-fname=paste0(outFolder,"UMAP_ConditionHarmony_black.png");
+fname=paste0(outFolder,"UMAP_ConditionHarmony.png");
 png(fname,width=1600,height=1200)
 p1 <- ggplot(aa,aes(UMAP_1,UMAP_2,color=Condition)) +
     geom_point(size=0.1) +
     guides(colour = guide_legend(override.aes = list(size=10),title="Condition")) +
     theme(legend.text=element_text(size=30), axis.text=element_text(size=20), axis.title=element_text(size=20,face="bold"))+
-    scale_color_manual(values=c("Control"="#333399","E. coli"="#A50021"))+
-    theme_black()+
+    scale_color_manual(values=c("PBS"="#333399","IL9"="#A50021"))+
+    theme_bw() +
     theme(text = element_text(size=30,face = "bold"),
           plot.title = element_text(size = 30, face = "bold"),
           legend.title=element_text(size=30,face="bold"), 
@@ -111,22 +111,24 @@ dev.off()
 
 fname=paste0(outFolder,"UMAP_LocationHarmony.Cell_annotation.png");
 png(fname,width=2000,height=1000)
-#p1 <- ggplot(aa,aes(UMAP_1,UMAP_2,color=seurat_clusters)) +
-p1 <- ggplot(aa,aes(UMAP_1,UMAP_2,color=cluster_name)) +
+p1 <- ggplot(aa,aes(UMAP_1,UMAP_2,color=seurat_clusters)) +
+#p1 <- ggplot(aa,aes(UMAP_1,UMAP_2,color=cluster_name)) +
     geom_point(size=0.1) +
     #theme(legend.text=element_text(size=30), axis.text=element_text(size=20), axis.title=element_text(size=20,face="bold"))+
-    scale_color_manual(values=cluster.Colors) +
+#    scale_color_manual(values=cluster.Colors) +
     #guides(colour = guide_legend(override.aes = list(size=5),title="Cluster")) +
     facet_grid(Condition ~ Location) +
-    
     theme_bw()+
     theme(text = element_text(size=25,face = "bold"),
           plot.title = element_text(size = 25, face = "bold"),
           legend.title=element_text(size=25,face="bold"), 
-          legend.text=element_text(size=25,face="bold"))
+          legend.text=element_text(size=25,face="bold")) + guides(color = guide_legend(override.aes = list(size = 15)))
+
+  
 p1
 dev.off()
 
+### I thnk from her you have barplots. 
 
 aa <- FetchData(sc,c("UMAP_1","UMAP_2","seurat_clusters","Library","Location","Condition")) 
 aa$cluster_name <- clust2Name[as.character(aa$seurat_clusters)]
