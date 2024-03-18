@@ -52,7 +52,7 @@ sc_list<-sapply(folders, function(x){
   # creating seurat object
   #################################################################################
   
-  sc4 <- CreateSeuratObject(counts = mouse.data$toc, project = "Mouse",min.cells = 0, min.features=200)
+  ##sc4 <- CreateSeuratObject(counts = mouse.data$toc, project = "Mouse",min.cells = 0, min.features=200)
   sc4@meta.data$Library<-rep(x,nrow(sc4@meta.data))
   sc4@meta.data$Location<-rep(samples %>% filter(Sample==x) %>%select(Tissue)%>% unlist, nrow(sc4@meta.data))
   sc4@meta.data$Condition<-rep(samples %>% filter(Sample==x) %>%select(Condition)%>% unlist, nrow(sc4@meta.data))
