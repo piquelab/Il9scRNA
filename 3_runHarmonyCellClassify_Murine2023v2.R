@@ -13,7 +13,7 @@ library(SingleR)
 #future::plan(strategy = 'multicore', workers = 12)
 #options(future.globals.maxSize = 30 * 1024 ^ 3)
 
-outFolder="./3_harmony_cellClass_Murine2023v0.5/"
+outFolder="./3_harmony_cellClass_Murine2023v0.5_DL/"
 system(paste0("mkdir -p ", outFolder))
 
 #######################################################
@@ -22,7 +22,7 @@ system(paste0("mkdir -p ", outFolder))
 # uploaded in grid: 
 sc1 <- read_rds("../murine2023ref/GSE200289_SeuratObject-GEO.rds")
 
-sc2 <- read_rds("./2_soupx_doubletfinder_Cleaning/sc.NormByLibrary.cellclassify_newfilter-res0.5.2024-03-09.rds")
+sc2 <- read_rds("./2_soupx_doubletfinder_Cleaning/sc.NormByLibrary.cellclassify_newfilter-res0.5.2024-04-02.rds")
 
 length(rownames(sc1))
 length(rownames(sc2))

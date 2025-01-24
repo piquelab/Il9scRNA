@@ -10,7 +10,7 @@ library(tidyverse)
 outFolder="./2_soupx_doubletfinder_Cleaning/"
 system(paste0("mkdir -p ", outFolder))
 
-ifn <- paste0("./1_soupx_doubletfinder_chrM/seuratObj-SoupX-Doublet-merge.2024-03-08.rds") 
+ifn <- paste0("./1_soupx_doubletfinder_chrM/seuratObj-SoupX-Doublet-merge.2024-03-18.rds") 
 sc <- read_rds(ifn)
 
 
